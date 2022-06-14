@@ -30,25 +30,11 @@ curl -s http://127.0.0.1/lisp.sh | bash -s "-e" "-l" "-u http://127.0.0.1/"
 # List of utilized tools
 > The following tools are used in `Crimson Lisp`. I encourage you to study the links below. They will help you in your work.
 
-
-### :diamonds: Privilege escalation:
-*[LinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS)
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-*[]()
-
+* [LinPEAS](https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS)
+* [pspy](https://github.com/DominicBreuker/pspy)
+* [traitor](https://github.com/liamg/traitor)
+* [LES: Linux privilege escalation auditing tool](https://github.com/mzet-/linux-exploit-suggester)
+* [The LaZagne Project](https://github.com/AlessandroZ/LaZagne)
 
 
 
