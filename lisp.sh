@@ -147,7 +147,7 @@ looting() {
     use post/multi/gather/remmina_creds
     use post/multi/gather/rsyncd_creds
     use post/multi/gather/ssh_creds
-    use post/multi/gather/thunderbird_creds"`
+    use post/multi/gather/thunderbird_creds"
 }
 
 escalation() {
