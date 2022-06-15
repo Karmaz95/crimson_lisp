@@ -24,7 +24,7 @@ sudo ./lisp.sh -l
 ```
 # HISTORY
 > If you are curious about how it works, read my blog:
-<MEDIUM PLACEHOLDER>
+* [MEDIUM](https://karol-mazurek95.medium.com/crimson-lisp-36d4891437d5)
 
 # List of utilized tools
 > The following tools are used in `Crimson Lisp`. I encourage you to study the links below. They will help you in your work.
