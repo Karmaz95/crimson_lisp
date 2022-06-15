@@ -1,5 +1,8 @@
 #!/bin/bash
 ### CREATED BY KARMAZ
+escalation_on=0
+looting_on=0
+downloading_on=0
 while getopts "elu:h" OPTION; do
     case $OPTION in
     e)
