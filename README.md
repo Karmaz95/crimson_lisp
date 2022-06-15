@@ -40,6 +40,7 @@ sudo ./lisp.sh -l
 * [traitor](https://github.com/liamg/traitor)
 * [LES: Linux privilege escalation auditing tool](https://github.com/mzet-/linux-exploit-suggester)
 * [The LaZagne Project](https://github.com/AlessandroZ/LaZagne)
+* [3snake](https://github.com/blendin/3snake)
 
 # LICENSE
 > This program is free software: you can redistribute it and/or modify it under the terms of the [Apache License](https://choosealicense.com/licenses/apache-2.0/). Crimson Lisp and any contributions are Copyright © by Karol Mazurek 2022.
