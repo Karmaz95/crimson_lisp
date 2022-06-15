@@ -87,6 +87,7 @@ download_tools() {
 }
 
 looting() {
+    cd blood || exit
     cd 3snake/ || exit
     make
     ./3snake -d -o ../loot/3snake.txt
@@ -149,6 +150,7 @@ run post/multi/gather/ssh_creds
 }
 
 escalation() {
+    cd blood || exit
     mkdir priv
     echo "======================= PTES => http://www.pentest-standard.org/index.php/Post_Exploitation"
     ./linpeas.sh -a | tee -a priv/linpeas.txt
