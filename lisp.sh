@@ -17,21 +17,30 @@ while getopts "elu:h" OPTION; do
         ;;
     h)
         echo "USAGE: 
-    ./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
-    ./lisp.sh -e                    => PRIVILEGE ESCALATION
-    sudo ./lisp.sh -l               => LOOTING"
+    ./lisp.sh -u http://127.0.0.1/  => FIRST DOWNLOAD THE TOOLS
+    ./lisp.sh -e                    => ESCALATE THE PRIVILEGES
+    sudo ./lisp.sh -l               => LOOT THE SYSTEM"
         exit 1
         ;;
     *)
         echo "You must specify one of the flag.
 USAGE: 
-    ./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
-    ./lisp.sh -e                    => PRIVILEGE ESCALATION
-    sudo ./lisp.sh -l               => LOOTING"
+    ./lisp.sh -u http://127.0.0.1/  => FIRST DOWNLOAD THE TOOLS
+    ./lisp.sh -e                    => ESCALATE THE PRIVILEGES
+    sudo ./lisp.sh -l               => LOOT THE SYSTEM"
         exit 1
         ;;
     esac
 done
+
+if [[ $# -eq 0 ]] ; then
+    echo "USAGE: 
+    ./lisp.sh -u http://127.0.0.1/  => FIRST DOWNLOAD THE TOOLS
+    ./lisp.sh -e                    => ESCALATE THE PRIVILEGES
+    sudo ./lisp.sh -l               => LOOT THE SYSTEM"
+    exit 1
+fi
+
 if command -v wget &> /dev/null
 then
     wget_found=1
