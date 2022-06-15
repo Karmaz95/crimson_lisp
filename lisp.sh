@@ -35,14 +35,15 @@ done
 if command -v wget &> /dev/null
 then
     wget_found=1
+    mkdir blood
 elif command -v curl &> /dev/null
 then
     curl_found=1
+    mkdir blood
 else
     echo "Install wget | curl to make the script work."
     exit 1
 fi
-mkdir blood
 
 download_tools() {
     kernel_arch=$(uname -m)
