@@ -17,17 +17,17 @@ while getopts "elu:h" OPTION; do
         ;;
     h)
         echo "USAGE: 
-./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
-./lisp.sh -e                    => PRIVILEGE ESCALATION
-sudo ./lisp.sh -l               => LOOTING"
+    ./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
+    ./lisp.sh -e                    => PRIVILEGE ESCALATION
+    sudo ./lisp.sh -l               => LOOTING"
         exit 1
         ;;
     *)
         echo "You must specify one of the flag.
 USAGE: 
-./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
-./lisp.sh -e                    => PRIVILEGE ESCALATION
-sudo ./lisp.sh -l               => LOOTING"
+    ./lisp.sh -u http://127.0.0.1/  => DOWNLOADING
+    ./lisp.sh -e                    => PRIVILEGE ESCALATION
+    sudo ./lisp.sh -l               => LOOTING"
         exit 1
         ;;
     esac

