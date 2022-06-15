@@ -8,11 +8,11 @@
 </p>
 
 # Installation
-```bash
+```
 git clone https://github.com/Karmaz95/crimson_lisp.git
 ```
 # Usage
-```bash
+```
 ### ON THE HOST MACHINE
 cd crimson_lisp
 sudo python3 -m http.server 80

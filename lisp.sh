@@ -166,6 +166,8 @@ escalation() {
     ./les.sh | tee -a priv/les.txt
     ./traitor* | tee -a priv/traitor.txt
     echo "======================= ADDITIONAL MSF MODULES - DO NOT FORGET:
+load priv
+getsystem
 run post/linux/gather/enum_system
 run post/linux/gather/enum_configs
 run post/linux/gather/enum_users_history
