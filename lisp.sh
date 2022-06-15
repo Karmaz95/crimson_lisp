@@ -35,17 +35,16 @@ done
 if command -v wget &> /dev/null
 then
     wget_found=1
-    mkdir blood
 elif command -v curl &> /dev/null
 then
     curl_found=1
-    mkdir blood
 else
     echo "Install wget | curl to make the script work."
     exit 1
 fi
 
 download_tools() {
+    mkdir blood
     kernel_arch=$(uname -m)
     cd blood || exit
     if [ "$wget_found" == 1 ]
@@ -83,6 +82,7 @@ download_tools() {
     fi
     unzip -qq nmap.zip
     unzip -qq 3snake.zip
+    rm nmap.zip 3snake.zip
     chmod +x linpeas.sh les.sh traitor* pspy* lazagne*
 }
 
