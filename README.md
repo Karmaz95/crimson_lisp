@@ -40,9 +40,9 @@ sudo ./lisp.sh -l
 ```bash
 ./run-nmap.sh -Pn INTERNAL_IP -p- --append-output -oA all_ports_scan
 ```
-#### 4.3 AD SPECIFIC SCAN
+#### 4.3 TOP PORTS SCAN
 ```bash
-./run-nmap.sh -Pn 172.22.11.1/24 -p21,22,53,80,443,88,135,139,445,389,636,1433,3389,5985 --append-output -oA AD_ports
+./run-nmap.sh -Pn 172.22.11.1/24 --top-ports 1000 --append-output -oA AD_ports
 ```
 
 # HISTORY
