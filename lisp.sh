@@ -188,7 +188,7 @@ run post/linux/gather/enum_users_history
 [*] DATABASES
 [*] INTERNAL PORT SCANNING
 [*] PORT FORWARDING"
-    ./pspy* | tee -a priv/pspy.txt
+    ./pspy* | tee -a priv/pspy.txt &
 }
 
 if [ $downloading_on == 1 ]
