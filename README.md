@@ -11,6 +11,17 @@
 ```
 git clone https://github.com/Karmaz95/crimson_lisp.git
 ```
+If hosted from Windows, convert the line endings of the script file from Windows-style (CRLF) to Unix-style (LF):
+```
+dos2unix tools/les.sh tools/linpeas.sh lisp.sh
+```
+Using VScode:
+```
+1. Open the script file in Visual Studio Code.
+2. Look at the bottom right corner of the editor. You should see a label that displays the current line endings used in the file. It should either say "CRLF" or "LF".
+3. Click on the label and select "LF". This will change the line endings of the file to Unix-style.
+4. Save the file by going to File > Save.
+```
 # Usage
 ## ON THE HOST MACHINE
 ```bash
