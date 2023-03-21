@@ -23,6 +23,11 @@ Using VScode:
 4. Save the file by going to File > Save.
 ```
 # Usage
+## FIRST UPDATE THE TOOL
+```
+chmod +x update.sh
+./update.sh
+```
 ## ON THE HOST MACHINE
 ```bash
 cd crimson_lisp
