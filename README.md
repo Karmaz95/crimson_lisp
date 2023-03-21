@@ -11,9 +11,14 @@
 ```
 git clone https://github.com/Karmaz95/crimson_lisp.git
 ```
+## FIRST UPDATE THE TOOL
+```
+chmod +x update.sh
+./update.sh
+```
 If hosted from Windows, convert the line endings of the script file from Windows-style (CRLF) to Unix-style (LF):
 ```
-dos2unix tools/les.sh tools/linpeas.sh lisp.sh
+dos2unix tools/les.sh tools/linpeas.sh lisp.sh update.sh
 ```
 Using VScode:
 ```
@@ -23,11 +28,6 @@ Using VScode:
 4. Save the file by going to File > Save.
 ```
 # Usage
-## FIRST UPDATE THE TOOL
-```
-chmod +x update.sh
-./update.sh
-```
 ## ON THE HOST MACHINE
 ```bash
 cd crimson_lisp
